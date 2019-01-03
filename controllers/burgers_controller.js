@@ -7,7 +7,7 @@ var router = express.Router();
 // Read operation for get request
 router.get("/", function(req, res) {
   db.Burger.findAll({}).then(function(dbBurger) {
-    res.json(dbBurger);
+    res.render("index", dbBurger);
   });
 });
 // Create operation for post request 
