@@ -1,16 +1,13 @@
 // *** Include Modules: express, burger.js
 var express = require('express');
-var burger = require('../models/burger');
+var db = require('../models');
 
 // Assign express.Router() to router and configure routes
 var router = express.Router();
 // Read operation for get request
 router.get("/", function(req, res) {
-  burger.selectAll(function(data) {
-    var hbsObject = {
-      burgers: data
-    };
-    res.render("index", hbsObject);
+  db.Burger.findAll({}).then(function(dbBurger) {
+    res.json(dbBurger);
   });
 });
 // Create operation for post request 
