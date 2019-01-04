@@ -9,7 +9,10 @@
     <div class="col-md-6">
       <h2 class="text-center">Available Burgers</h2>
       <ul class="list-unstyled">
-        {{#each burgers}}
+        <p>hi</p>
+        {{#each Burger}}
+        <p>Hi</p>
+         {{name}}
           {{#unless devoured}}
             {{> burgers/burger-block devour=true}}
           {{/unless}}
@@ -19,7 +22,7 @@
     <div class="col-md-6">
       <h2 class="text-center">Devoured Burgers</h2>
       <ul class="list-unstyled">
-        {{#each burgers}}
+        {{#each Burger}}
           {{#if devoured}}
             {{> burgers/burger-block devour=false}}
           {{/if}}
