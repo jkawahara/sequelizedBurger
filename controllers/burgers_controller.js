@@ -7,7 +7,11 @@ var router = express.Router();
 // Read operation for get request
 router.get("/", function (req, res) {
   db.Burger.findAll({}).then(function (dbBurger) {
-    res.render("index", dbBurger);
+    var hbsObject = {
+      burgers: dbBurger
+    };
+    res.render("index", hbsObject);
+
   });
 });
 // Create operation for post request 
@@ -38,14 +42,22 @@ router.put("/api/burgers/:id", function (req, res) {
 //     }
 //   );
 // });
+// router.put(‘/book/:bookId’, function (req, res, next) {
+//   Book.update(
+//     {title: req.body.title},
+//     {where: req.params.bookId}
+//   )
+console.log(req.params.id)
+console.log(req.body.devoured)
   db.Burger.update(
-    req.body.devoured,
-    {
-      where: {
-        id: req.body.id
+    
+    {devoured: req.body.devoured},
+    
+      {where: 
+        req.params.id
       }
-    }).then(function(dbPost) {
-    res.json(dbPost);
+    ).then(function(dbBurger) {
+    res.json(dbBurger);
   });
 });
 // *** Export routes for server.js
