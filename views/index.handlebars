@@ -10,7 +10,6 @@
       <h2 class="text-center">Available Burgers</h2>
       <ul class="list-unstyled">
         {{#each burgers}}
-         {{name}}
           {{#unless devoured}}
             {{> burgers/burger-block devour=true}}
           {{/unless}}
