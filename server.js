@@ -1,4 +1,3 @@
-debugger;
 // *** Include Modules: express, handlebars, method-override, body-parser, /models
 var express = require('express');
 var exphbs = require('express-handlebars');
@@ -25,10 +24,8 @@ app.use(routes);
 // Handlebars
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
 app.set('view engine', 'handlebars');
-debugger;
 // *** Listener
 db.sequelize.sync({ force: true }).then(function() {
-  debugger;
   app.listen(PORT, function() {
     console.log('App listening on PORT: ' + PORT);
   });
