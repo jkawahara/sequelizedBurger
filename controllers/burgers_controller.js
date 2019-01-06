@@ -1,40 +1,38 @@
-// *** Include Modules: express, burger.js
+// *** Include Modules: express, /models
 var express = require('express');
-var burger = require('../models/burger');
+var db = require('../models');
 
 // Assign express.Router() to router and configure routes
 var router = express.Router();
+
 // Read operation for get request
 router.get("/", function(req, res) {
-  burger.selectAll(function(data) {
+  db.Burger.findAll({ raw: true }).then(function(dbBurger) {
     var hbsObject = {
-      burgers: data
+      burgers: dbBurger
     };
     res.render("index", hbsObject);
   });
 });
 // Create operation for post request 
 router.post("/api/burgers", function(req, res) {
-  burger.insertOne(["burger_name", "devoured"], [req.body.burger_name, req.body.devoured], function(result) {
-    res.json({ id: result.insertId });
+  db.Burger.create(req.body).then(function(dbBurger) {
+    res.json(dbBurger);
   });
 });
 // Update operation for put request
 router.put("/api/burgers/:id", function(req, res) {
-  var condition = "id = " + req.params.id;
-  burger.updateOne(
+  db.Burger.update(
     {
       devoured: req.body.devoured
     },
-    condition,
-    function(result) {
-      if (result.changedRows === 0) {
-        // Return 404 if no rows changed
-        return res.status(404).end();
+    {
+      where: {
+        id: req.params.id
       }
-      res.status(200).end();
-    }
-  );
+    }).then(function(dbBurger) {      
+      res.json(dbBurger);
+    });
 });
 
 // *** Export routes for server.js
