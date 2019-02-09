@@ -34,6 +34,5 @@ router.put("/api/burgers/:id", function(req, res) {
       res.json(dbBurger);
     });
 });
-
 // *** Export routes for server.js
 module.exports = router;
