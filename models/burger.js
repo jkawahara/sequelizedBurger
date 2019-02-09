@@ -1,40 +1,25 @@
-// *** Include Modules: orm.js
-// var orm = require("../config/orm.js");
-
-// var burger = {
-//   selectAll: function(cb) {
-//     orm.selectAll("burgers", function(res) {
-//       cb(res);
-//     });
-//   },
-//   // The variables cols and vals are arrays.
-//   insertOne: function(cols, vals, cb) {
-//     orm.insertOne("burgers", cols, vals, function(res) {
-//       cb(res);
-//     });
-//   },
-//   updateOne: function(objColVals, condition, cb) {
-//     orm.updateOne("burgers", objColVals, condition, function(res) {
-//       cb(res);
-//     });
-//   }
-// };
-
-// *** Export burger object for controller
-// module.exports = burger;
-
+// *** Export Burger object for controller
 module.exports = function(sequelize, DataTypes) {
-  var Burger = sequelize.define("Burger", {
-    name : {
+  var Burger = sequelize.define('Burger', {
+    // Burger model a burger_name of type STRING
+    burger_name: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
         len: [1]
       }
     },
-    devoured : {
+    devoured: {
       type: DataTypes.BOOLEAN,
       defaultValue: false
+    },
+    createdAt: {
+      type: DataTypes.DATE,
+      defaultValue: sequelize.literal('CURRENT_TIMESTAMP')
+    },
+    updatedAt: {
+      type: DataTypes.DATE,
+      defaultValue: sequelize.literal('CURRENT_TIMESTAMP')
     }
   });
   return Burger;
